@@ -7,7 +7,7 @@ function turnOn(id) {
 }
 
 function turnOff(id) {
-  return $.ajaxAsObservable({ url: "/api/on", data: { id  : id }})
+  return $.ajaxAsObservable({ url: "/api/off", data: { id  : id }})
 }
 
 $(function() {
