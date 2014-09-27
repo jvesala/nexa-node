@@ -14,10 +14,11 @@ app.get('/api/on', function(request, response) {
   var query = url.parse(request.url, true).query
   if (query && query.id) {
     console.log("Turning on id " + query.id)
-    telldus.turnOnSync(query.id)
-    var res = "OK: turn on id:" + query.id
-    console.log(res)
-    response.send(res)
+    telldus.turnOn(query.id, function(err) {
+      var res = "OK: turn on id:" + query.id
+      console.log(res)
+      response.send(res)
+    })
   }
 })
 
@@ -25,10 +26,11 @@ app.get('/api/off', function(request, response) {
   var query = url.parse(request.url, true).query
   if (query && query.id) {
     console.log("Turning off id " + query.id)
-    telldus.turnOffSync(query.id)
-    var res = "OK: turn off id:" + query.id
-    console.log(res)
-    response.send(res)
+    telldus.turnOff(query.id, function(err) {
+      var res = "OK: turn off id:" + query.id
+      console.log(res)
+      response.send(res)
+    })
   }
 })
 
