@@ -28,5 +28,11 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jvesala/nexa-node.git"
+  },
+  "author": "Jussi Vesala",
+  "homepage": "https://github.com/jvesala/nexa-node"
 }
