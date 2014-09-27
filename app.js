@@ -45,6 +45,9 @@ app.get("/api/list", function(request, response) {
   })
 })
 
+var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,type,value,timestamp) {
+  console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp);
+});
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
