@@ -1,6 +1,6 @@
 var express = require('express')
-var url = require('url');
-var telldus = require('telldus');
+var url = require('url')
+var telldus = require('telldus')
 
 var app = express();
 app.set('port', (process.env.PORT || 9000))
@@ -30,6 +30,16 @@ app.get('/api/off', function(request, response) {
       response.send(res)
     })
   }
+})
+
+app.get("/api/list", function(request, response) {
+  telldus.getDevices(function(err,devices) {
+    if (err) {
+      console.log('Error: ' + err)
+    } else {
+      console.log(devices)
+    }
+  })
 })
 
 
