@@ -3,11 +3,11 @@ function targetValue(e) {
 }
 
 function turnOn(id) {
-  return $.ajaxAsObservable({ url: "/api/on", data: { id  : id }})
+  return $.ajaxAsObservable({ url: "/api/on?id=" + id, cache: false })
 }
 
 function turnOff(id) {
-  return $.ajaxAsObservable({ url: "/api/off", data: { id  : id }})
+  return $.ajaxAsObservable({ url: "/api/off?id=" + id, cache: false })
 }
 
 $(function() {
