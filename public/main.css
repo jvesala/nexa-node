@@ -25,6 +25,10 @@ h1 {
   list-style: none;
 }
 
+.temperaturelist li {
+  list-style: none;
+}
+
 .switch {
   width: 200px;
   text-align: center;

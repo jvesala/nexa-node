@@ -10,6 +10,16 @@ function turnOff(id) {
   return $.ajaxAsObservable({ url: "/api/off?id=" + id, cache: false })
 }
 
+function handleWc(type, value) {
+  if (type == "type=1") $('.temperature.wc').val(value.split("=")[1])
+  else $('.humidity.wc').val(value.split("=")[1])
+}
+
+function handleOutside(type, value) {
+  if (type == "type=1") $('.temperature.outside').val(value.split("=")[1])
+  else $('.humidity.outside').val(value.split("=")[1])
+}
+
 $(function() {
   $('button.switch.on').clickAsObservable().select(targetValue).subscribe(function(id) {
     turnOn(id).subscribe(function(x) {  console.log("Turned on " + id) })
@@ -21,6 +31,8 @@ $(function() {
 
   var connection = new WebSocket("ws://"+window.location.hostname+":9001")
   connection.onmessage = function (event) {
-    console.log(event.data)
+    var data = event.data.split(",")
+    if (data[0] == "deviceId=11") handleWc(data[1], data[2])
+    else handleOutside(data[1], data[2])
   }
 })
