@@ -24,7 +24,7 @@ app.get('/api/on', function(request, response) {
 app.get('/api/off', function(request, response) {
   var query = url.parse(request.url, true).query
   if (query && query.id) {
-    telldus.turnOn(query.id, function(err) {
+    telldus.turnOff(query.id, function(err) {
       var res = "OK: turn off id:" + query.id
       console.log(res)
       response.send(res)
