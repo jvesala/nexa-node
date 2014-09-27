@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jvesala/nexa-node",
   "dependencies": {
-    "express": "4.x"
+    "express": "4.x",
+    "telldus": "*"
   }
 }

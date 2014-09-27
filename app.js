@@ -1,5 +1,6 @@
 var express = require('express')
 var url = require('url');
+var telldus = require('telldus');
 
 var app = express();
 app.set('port', (process.env.PORT || 9000))
@@ -12,18 +13,22 @@ app.get('/', function(request, response) {
 app.get('/api/on', function(request, response) {
   var query = url.parse(request.url, true).query
   if (query && query.id) {
-    var res = "OK: turn on id:" + query.id
-    console.log(res)
-    response.send(res)
+    telldus.turnOn(deviceId,function(err) {
+      var res = "OK: turn on id:" + query.id
+      console.log(res)
+      response.send(res)
+    })
   }
 })
 
 app.get('/api/off', function(request, response) {
   var query = url.parse(request.url, true).query
   if (query && query.id) {
-    var res = "OK: turn off id:" + query.id
-    console.log(res)
-    response.send(res)
+    telldus.turnOn(deviceId,function(err) {
+      var res = "OK: turn off id:" + query.id
+      console.log(res)
+      response.send(res)
+    })
   }
 })
 
