@@ -40,6 +40,7 @@ app.get("/api/list", function(request, response) {
       console.log('Error: ' + err)
     } else {
       console.log(devices)
+      response.send(devices)
     }
   })
 })
