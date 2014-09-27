@@ -1,14 +1,14 @@
 var express = require('express')
 var url = require('url')
 var telldus = require('telldus')
+var ws = require("nodejs-websocket")
 
-var app = express();
-app.set('port', (process.env.PORT || 9000))
+var port = process.env.PORT || 9000
+var portWs = 9001
+
+var app = express()
+app.set('port', port)
 app.use(express.static(__dirname + '/public'))
-
-app.get('/', function(request, response) {
-  response.send('Hello World!')
-})
 
 app.get('/api/on', function(request, response) {
   var query = url.parse(request.url, true).query
@@ -45,10 +45,25 @@ app.get("/api/list", function(request, response) {
   })
 })
 
-var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,type,value,timestamp) {
-  console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp);
-});
-
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
+})
+
+var server = ws.createServer(function (conn) {
+  console.log("New connection")
+  conn.on("text", function (str) {
+    console.log("Received "+str)
+  })
+  conn.on("close", function (code, reason) {
+    console.log("Connection closed")
+  })
+})
+server.listen(portWs)
+
+var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,type,value,timestamp) {
+  console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp);
+
+  server.connections.forEach(function (conn) {
+    conn.sendText("deviceId=" + deviceId + ",type=" + type + ",value=" + value)
+  })
 })

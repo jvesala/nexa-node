@@ -18,4 +18,9 @@ $(function() {
   $('button.switch.off').clickAsObservable().select(targetValue).subscribe(function(id) {
     turnOff(id).subscribe(function(x) {  console.log("Turned off " + id) })
   })
+
+  var connection = new WebSocket("ws://"+window.location.hostname+":9001")
+  connection.onmessage = function (event) {
+    console.log(event.data)
+  }
 })
