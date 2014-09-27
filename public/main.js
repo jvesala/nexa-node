@@ -11,13 +11,13 @@ function turnOff(id) {
 }
 
 function handleWc(type, value) {
-  if (type == "type=1") $('.temperature.wc').val(value.split("=")[1])
-  else $('.humidity.wc').val(value.split("=")[1])
+  if (type == "type=1") $('.temperature.wc').text(value.split("=")[1])
+  else $('.humidity.wc').text(value.split("=")[1])
 }
 
 function handleOutside(type, value) {
-  if (type == "type=1") $('.temperature.outside').val(value.split("=")[1])
-  else $('.humidity.outside').val(value.split("=")[1])
+  if (type == "type=1") $('.temperature.outside').text(value.split("=")[1])
+  else $('.humidity.outside').text(value.split("=")[1])
 }
 
 $(function() {
