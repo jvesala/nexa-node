@@ -62,10 +62,10 @@ var server = ws.createServer(function (conn) {
 })
 server.listen(portWs)
 
-var sensorState = { temp1: "", humidity1: "", temp2: "", humidity2: ""}
+var sensorState = { temp1: "", humidity1: "", temp2: "", humidity2: "" }
 
 var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,type,value,timestamp) {
-  console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp);
+  console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp)
   updateSensorState(deviceId, type, value)
 
   server.connections.forEach(function (conn) { conn.sendText(JSON.stringify(sensorState)) })

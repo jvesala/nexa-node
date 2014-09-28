@@ -29,6 +29,7 @@ $(function() {
 
   var connection = new WebSocket("ws://"+window.location.hostname+":9001")
   connection.onmessage = function (event) {
+    console.log(event.data)
     updateSensorData(JSON.parse(event.data))
   }
 })
