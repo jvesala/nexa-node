@@ -76,5 +76,5 @@ function updateSensorState(deviceId, type, value) {
   else if (deviceId == "11" && type == 2) sensorState.humidity1 = value
   else if (deviceId == "21" && type == 1) sensorState.temp2 = value
   else if (deviceId == "21" && type == 2) sensorState.humidity2 = value
-  else console.log("unknown sensor info: + " deviceId + "," + type + "," + value)
+  else console.log("unknown sensor info: " + deviceId + "," + type + "," + value)
 }
