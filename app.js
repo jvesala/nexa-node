@@ -64,11 +64,13 @@ server.listen(portWs)
 var sensorState = { temp1: "", humidity1: "", temp2: "", humidity2: "" }
 
 var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,type,value,timestamp) {
-  console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp)
   updateSensorState(deviceId, type, value)
-
   server.connections.forEach(function (conn) { sendState(conn) })
 })
+
+var deviceListener = telldus.addDeviceEventListener(function(deviceId, status) {
+  console.log('Device ' + deviceId + ' is now ' + status.name)
+});
 
 function updateSensorState(deviceId, type, value) {
   if (deviceId == "11" && type == 1) sensorState.temp1 = value
