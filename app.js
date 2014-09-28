@@ -54,7 +54,7 @@ var server = ws.createServer(function (conn) {
     console.log("Received "+str)
   })
   conn.on("close", function (code, reason) {
-    console.log("Connection closed")
+
   })
 })
 server.listen(portWs)
@@ -64,11 +64,6 @@ var sensorState = { temp1: "", humidity1: "", temp2: "", humidity2: "" }
 var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,type,value,timestamp) {
   updateSensorState(deviceId, type, value)
   server.connections.forEach(function (conn) { sendState(conn) })
-})
-
-var deviceListener = telldus.addDeviceEventListener(function(deviceId, status) {
-  console.log('Device ' + deviceId + ' is now ' + status.name)
-  console.log(status)
 })
 
 function updateSensorState(deviceId, type, value) {
