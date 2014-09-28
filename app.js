@@ -51,10 +51,13 @@ var server = ws.createServer(function (conn) {
   sendState(conn)
 
   conn.on("text", function (str) {
-    console.log("Received "+str)
+
   })
   conn.on("close", function (code, reason) {
 
+  })
+  conn.on("error", function (err) {
+    console.log("Error " + err)
   })
 })
 server.listen(portWs)
