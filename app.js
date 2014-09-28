@@ -51,6 +51,8 @@ app.listen(app.get('port'), function() {
 
 var server = ws.createServer(function (conn) {
   console.log("New connection")
+  conn.sendText(sensorState)
+
   conn.on("text", function (str) {
     console.log("Received "+str)
   })
@@ -60,10 +62,19 @@ var server = ws.createServer(function (conn) {
 })
 server.listen(portWs)
 
+var sensorState = { temp1: "", humidity1: "", temp2: "", humidity2: ""}
+
 var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,type,value,timestamp) {
   console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp);
+  updateSensorState(deviceId, type, value)
 
-  server.connections.forEach(function (conn) {
-    conn.sendText("deviceId=" + deviceId + ",type=" + type + ",value=" + value)
-  })
+  server.connections.forEach(function (conn) { conn.sendText(sensorState) })
 })
+
+function updateSensorState(deviceId, type, value) {
+  if (deviceId == "11" && type == 1) sensorState.temp1 = value
+  else if (deviceId == "11" && type == 2) sensorState.humidity1 = value
+  else if (deviceId == "21" && type == 1) sensorState.temp2 = value
+  else if (deviceId == "21" && type == 2) sensorState.humidity2 = value
+  else console.log("unknown sensor info: + " deviceId + "," + type + "," + value)
+}
