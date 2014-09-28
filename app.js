@@ -68,7 +68,7 @@ var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,t
   console.log('New sensor event received: ',deviceId,protocol,model,type,value,timestamp);
   updateSensorState(deviceId, type, value)
 
-  server.connections.forEach(function (conn) { conn.sendText(sensorState) })
+  server.connections.forEach(function (conn) { conn.sendText(JSON.stringify(sensorState)) })
 })
 
 function updateSensorState(deviceId, type, value) {
