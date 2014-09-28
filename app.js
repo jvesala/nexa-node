@@ -13,7 +13,6 @@ app.use(express.static(__dirname + '/public'))
 app.get('/api/on', function(request, response) {
   var query = url.parse(request.url, true).query
   if (query && query.id) {
-    console.log("Turning on id " + query.id)
     telldus.turnOn(parseInt(query.id), function(err) {
       var res = "OK: turn on id:" + query.id
       console.log(res)
@@ -25,7 +24,6 @@ app.get('/api/on', function(request, response) {
 app.get('/api/off', function(request, response) {
   var query = url.parse(request.url, true).query
   if (query && query.id) {
-    console.log("Turning off id " + query.id)
     telldus.turnOff(parseInt(query.id), function(err) {
       var res = "OK: turn off id:" + query.id
       console.log(res)
@@ -70,7 +68,8 @@ var listener = telldus.addSensorEventListener(function(deviceId,protocol,model,t
 
 var deviceListener = telldus.addDeviceEventListener(function(deviceId, status) {
   console.log('Device ' + deviceId + ' is now ' + status.name)
-});
+  console.log(status)
+})
 
 function updateSensorState(deviceId, type, value) {
   if (deviceId == "11" && type == 1) sensorState.temp1 = value
